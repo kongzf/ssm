@@ -66,6 +66,11 @@
 			<artifactId>pagehelper</artifactId>
 			<version>3.6.3</version>
 		</dependency>
+		<dependency>
+            <groupId>com.github.abel533</groupId>
+            <artifactId>mapper</artifactId>
+            <version>2.3.2</version>
+        </dependency>
 		<!-- mybatis end -->
 
 		<!-- spring4 start -->

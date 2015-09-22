@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import core.ajaxResult.AjaxResult;
 import blog.dao.User;
+import blog.service.IUserService;
 import blog.service.imp.UserService;
 
 /**
@@ -21,7 +22,8 @@ import blog.service.imp.UserService;
 @Controller
 public class UserController {
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
+	
 	@RequestMapping(value="/hello",method=RequestMethod.POST)
 	public String getByController(String id){
 		return "hello";
@@ -29,8 +31,8 @@ public class UserController {
     @RequestMapping(value="/user",method=RequestMethod.POST)
    	public ModelAndView getTeemo(Integer id){
     	ModelAndView modelAndView=new ModelAndView();
-    	modelAndView.addObject("userName",userService.getUserById(id).getName());
-    	modelAndView.addObject("userDesc",userService.getUserById(id).getDes());
+    	modelAndView.addObject("userName",userService.selectByPrimaryKey(id).getName());
+    	modelAndView.addObject("userDesc",userService.selectByPrimaryKey(id).getDes());
     	modelAndView.setViewName("user");
    		return modelAndView;
    	}
@@ -38,12 +40,12 @@ public class UserController {
     @RequestMapping(value="/getById",method=RequestMethod.POST)
    	public AjaxResult getById(Integer id){
     	
-   		return AjaxResult.getOK(userService.getUserById(id));
+   		return AjaxResult.getOK(userService.selectByPrimaryKey(id));
    	}
    @ResponseBody
    @RequestMapping(value="/addUser",method=RequestMethod.POST)
   	public AjaxResult getById(@RequestBody User user){
-   	    userService.insertUser(user);
+   	    userService.insertSelective(user);
   		return AjaxResult.getOK();
   	}
 }

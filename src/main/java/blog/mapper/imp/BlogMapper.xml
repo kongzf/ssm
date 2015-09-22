@@ -79,13 +79,6 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="blog.dao.Blog" >
-    update b_blog
-    set title = #{title,jdbcType=VARCHAR},
-      des = #{des,jdbcType=VARCHAR},
-      context = #{context,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
   <update id="updateByPrimaryKey" parameterType="blog.dao.Blog" >
     update b_blog
     set title = #{title,jdbcType=VARCHAR},

@@ -3,6 +3,8 @@ package blog.service.imp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import core.mapper.IBaseMapper;
+import core.service.BaseService;
 import blog.dao.User;
 import blog.mapper.UserMapper;
 import blog.service.IUserService;
@@ -13,21 +15,21 @@ import blog.service.IUserService;
 
  */
 @Service("userService")
-public class UserService implements IUserService {
+public class UserService extends BaseService<User>  implements IUserService {
     @Autowired
 	private UserMapper userMapper;
+
+	@Override
+	public IBaseMapper<User> getBaseMapper() {
+		// TODO Auto-generated method stub
+		return userMapper;
+	}
+
+	
+	
 	
 
-	@Override
-	public User getUserById(Integer id) {
-		return userMapper.selectByPrimaryKey(id);
-	}
-
-	@Override
-	public void insertUser(User user) {
-		userMapper.insertSelective(user);
-		
-	}
+	
 
 }
 
