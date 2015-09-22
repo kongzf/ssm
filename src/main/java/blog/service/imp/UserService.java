@@ -14,16 +14,9 @@ import blog.service.IUserService;
  */
 @Service("userService")
 public class UserService implements IUserService {
-   
+    @Autowired
 	private UserMapper userMapper;
 	
-	public UserMapper getUserMapper() {
-		return userMapper;
-	}
-   @Autowired
-	public void setUserMapper(UserMapper userMapper) {
-		this.userMapper = userMapper;
-	}
 
 	@Override
 	public User getUserById(Integer id) {
