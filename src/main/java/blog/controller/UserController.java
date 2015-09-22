@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import core.ajaxResult.AjaxResult;
+import core.exception.MyException;
 import core.utils.MD5Util;
 import blog.dao.User;
 import blog.service.IUserService;
@@ -45,10 +46,12 @@ public class UserController {
    	}
    @ResponseBody
    @RequestMapping(value="/addUser",method=RequestMethod.POST)
-  	public AjaxResult getById(@RequestBody User user){
-	   if(user.getPassword()!=null){
-		   user.setPassword(MD5Util.getMD5(user.getPassword().getBytes()));
+  	public AjaxResult addUser(@RequestBody User user){
+	   if(user.getPassword()==null){
+		   throw new MyException("密码不能为空");
 	   }
+	   //对密码进行MD5加密
+	    user.setPassword(MD5Util.getMD5(user.getPassword().getBytes()));
    	    userService.insertSelective(user);
   		return AjaxResult.getOK();
   	}
