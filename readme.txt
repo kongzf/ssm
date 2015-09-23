@@ -5,6 +5,9 @@
  使用版本信息：
  spring：3.2.13
  mybatis：3.2.8
+ JDK： 1.7
+ mysql：5.6
+ 
  
  相关进程记录：
    2015.9.21 将框架搭好，用mybatis-generator生成数据库实体和mapper，集成spring+mybatis+springMVC，基本测试通过

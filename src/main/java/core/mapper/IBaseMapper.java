@@ -1,5 +1,9 @@
 package core.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
+
 import blog.dao.User;
 
 /**
@@ -19,6 +23,6 @@ public interface IBaseMapper<T> {
     int updateByPrimaryKeySelective(T record);
 
     int updateByPrimaryKey(T record);
-
+    List<T> getAllByPage(RowBounds rowBounds);
 }
 

@@ -3,7 +3,7 @@ package blog.dao;
 public class Role {
     private Integer id;
 
-    private Integer name;
+    private String name;
 
     public Integer getId() {
         return id;
@@ -13,11 +13,11 @@ public class Role {
         this.id = id;
     }
 
-    public Integer getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Integer name) {
+    public void setName(String name) {
         this.name = name;
     }
 }

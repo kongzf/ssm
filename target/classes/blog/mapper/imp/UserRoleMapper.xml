@@ -68,4 +68,27 @@
       roleId = #{roleid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!-- 自定义的方法 -->
+  <select id="getRoleIdListByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select roleId from b_user_role where userId=#{userId}
+  </select>
+  <insert id="addUserRoleList">
+   insert into b_user_role (id,userId,roleId) values
+   <foreach collection="roleIdList" separator="," item="item">
+     (null,#{userId},#{item})
+   </foreach>
+  </insert>
+  <delete id="deleteUserRoleList">
+       DELETE FROM b_user_role WHERE userId=#{userId} AND
+        roleId IN
+        <foreach collection="roleIdList" index="index" item="item" open="("  separator="," close=")">
+            #{item}
+        </foreach>
+  </delete>
+  <delete id="deleteByUserIdList">
+      DELETE FROM b_user_role WHERE userId in
+        <foreach collection="UserIdList" index="index" item="item" open="("  separator="," close=")">
+            #{item}
+        </foreach>
+  </delete>
 </mapper>

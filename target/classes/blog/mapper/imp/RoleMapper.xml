@@ -3,7 +3,7 @@
 <mapper namespace="blog.mapper.RoleMapper" >
   <resultMap id="BaseResultMap" type="blog.dao.Role" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, name
@@ -20,7 +20,7 @@
   </delete>
   <insert id="insert" parameterType="blog.dao.Role" >
     insert into b_role (id, name)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=INTEGER})
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="blog.dao.Role" >
     insert into b_role
@@ -37,7 +37,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
-        #{name,jdbcType=INTEGER},
+        #{name,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -45,14 +45,27 @@
     update b_role
     <set >
       <if test="name != null" >
-        name = #{name,jdbcType=INTEGER},
+        name = #{name,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="blog.dao.Role" >
     update b_role
-    set name = #{name,jdbcType=INTEGER}
+    set name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+   <!-- 自己编写的方法 -->
+  <select id="getRoleListByUserId" parameterType="java.lang.Integer" resultType="blog.dao.Role">
+    select r.*  from b_role r 
+    left join b_user_role ur on r.id=ur.roleId
+    where ur.userId=#{userId}
+  </select>
+  <select id="getRoleList" parameterType="java.lang.Integer" resultType="blog.dao.Role">
+    select * from b_role where 1=1
+    <if test="id!=null">and id=#{id}</if>
+  </select>
+  <select id="getNameCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+   select count(id) from b_role where name=#{roleName}
+  </select>
 </mapper>
