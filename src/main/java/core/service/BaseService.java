@@ -1,6 +1,4 @@
 package core.service;
-
-import blog.dao.Blog;
 import core.mapper.IBaseMapper;
 
 /**

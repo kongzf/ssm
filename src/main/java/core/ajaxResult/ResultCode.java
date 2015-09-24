@@ -20,7 +20,7 @@ public enum ResultCode {
     /**
      * 业务错误. ErrorCode : 03
      */
-    BusinessException("03","业务错误"),
+    MyException("03","业务错误"),
     /**
      * 提示级错误. ErrorCode : 04
      */

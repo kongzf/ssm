@@ -17,6 +17,12 @@ import blog.dto.output.UserDetails;
  */
 public interface IUserService extends IBaseService<User> {
 	/**
+	 * 获取用户角色列表
+	 * @param userId
+	 * @return
+	 */
+	public List<Integer> getUserRoleList(Integer userId);
+	/**
 	 * 用户登录
 	 * @param username 用户名
 	 * @param password 密码
@@ -50,7 +56,7 @@ public interface IUserService extends IBaseService<User> {
 	 *            用户名（模糊查询）
 	 * @return
 	 */
-	public List<User> getUserList(Integer level,String username);
+	public List<User> getUserList(Integer level,String username,RowBounds rowBounds);
 
 	/**
 	 * 修改用户信息（若是管理员可以修改其角色信息）

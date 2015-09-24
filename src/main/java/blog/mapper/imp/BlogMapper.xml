@@ -5,12 +5,13 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="des" property="des" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="blog.dao.Blog" extends="BaseResultMap" >
     <result column="context" property="context" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, title, des
+    id, title, des, userId
   </sql>
   <sql id="Blob_Column_List" >
     context
@@ -29,9 +30,9 @@
   </delete>
   <insert id="insert" parameterType="blog.dao.Blog" >
     insert into b_blog (id, title, des, 
-      context)
+      userId, context)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, 
-      #{context,jdbcType=LONGVARCHAR})
+      #{userid,jdbcType=INTEGER}, #{context,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="blog.dao.Blog" >
     insert into b_blog
@@ -44,6 +45,9 @@
       </if>
       <if test="des != null" >
         des,
+      </if>
+      <if test="userid != null" >
+        userId,
       </if>
       <if test="context != null" >
         context,
@@ -59,6 +63,9 @@
       <if test="des != null" >
         #{des,jdbcType=VARCHAR},
       </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
       <if test="context != null" >
         #{context,jdbcType=LONGVARCHAR},
       </if>
@@ -73,16 +80,35 @@
       <if test="des != null" >
         des = #{des,jdbcType=VARCHAR},
       </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
       <if test="context != null" >
         context = #{context,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="blog.dao.Blog" >
+    update b_blog
+    set title = #{title,jdbcType=VARCHAR},
+      des = #{des,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      context = #{context,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <update id="updateByPrimaryKey" parameterType="blog.dao.Blog" >
     update b_blog
     set title = #{title,jdbcType=VARCHAR},
-      des = #{des,jdbcType=VARCHAR}
+      des = #{des,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!-- 自定义 -->
+  <delete id="deleteByIdAndUserId">
+   delete from b_blog where id=#{id} and userId=#{userid}
+  </delete>
+  <select id="getUserBlogDetails" resultType="blog.dto.output.BlogDetails">
+    select id,title,des from b_blog where userId=#{userId}
+  </select>
 </mapper>

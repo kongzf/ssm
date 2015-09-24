@@ -7,6 +7,8 @@ public class Blog {
 
     private String des;
 
+    private Integer userid;
+
     private String context;
 
     public Integer getId() {
@@ -31,6 +33,14 @@ public class Blog {
 
     public void setDes(String des) {
         this.des = des == null ? null : des.trim();
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public String getContext() {

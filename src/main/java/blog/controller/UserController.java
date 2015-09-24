@@ -88,6 +88,9 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public AjaxResult loginAction(String username, String password) {
 		UserDetails userDetails = userService.login(username, password);
+		if(userDetails==null){
+			return AjaxResult.getOK("用户名或密码错误",userDetails);
+		}
 		return AjaxResult.getOK(userDetails);
 	}
 
@@ -144,7 +147,7 @@ public class UserController extends BaseController {
 			@RequestParam(value = "pageIndex", defaultValue = "1") Integer pageIndex,
 			@RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize) {
 
-		List<User> userList=userService.getUserList(level, username);
+		List<User> userList=userService.getUserList(level, username,new RowBounds(pageIndex,pageSize));
 		return AjaxResult.getOK(userList);
 	}
 

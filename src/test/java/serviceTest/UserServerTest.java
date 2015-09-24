@@ -1,11 +1,19 @@
 package serviceTest;
 
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
+import org.aspectj.weaver.NewConstructorTypeMunger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+
+import core.common.PageInfo;
 import base.BaseControllerTest;
 import blog.dao.User;
 import blog.service.imp.UserService;
@@ -33,5 +41,13 @@ public class UserServerTest extends BaseControllerTest {
     	Integer id=1;
     	User user=userService.selectByPrimaryKey(id);
     	System.out.println(user.getName()+":"+user.getDes());
+    }
+    @Test
+    public void testGetUserList(){
+    	String username="sk";
+    	
+      List<User> pageInfo= userService.getUserList(null, username, new RowBounds(1,2));
+      String objString=new Gson().toJson(pageInfo);
+      System.out.println(objString);
     }
 }

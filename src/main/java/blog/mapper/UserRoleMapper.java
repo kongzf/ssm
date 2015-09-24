@@ -17,4 +17,5 @@ public interface UserRoleMapper extends IBaseMapper<UserRole> {
 	public void deleteUserRoleList(@Param("userId")Integer userId,@Param("roleIdList")List<Integer> roleIdList);
 	//批量删除
 	public void deleteByUserIdList(@Param("UserIdList")List<Integer> UserIdList);
+	
 }

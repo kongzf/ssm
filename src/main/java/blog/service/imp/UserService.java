@@ -62,9 +62,9 @@ public class UserService extends BaseService<User> implements IUserService {
 	 * 查询特定等级，用户名的会员信息
 	 */
 	@Override
-	public List<User> getUserList(Integer level, String username) {
+	public List<User> getUserList(Integer level, String username,RowBounds rowBounds) {
 		List<User> userList = userMapper.getUserListByLevel(level, username);
-		
+		//com.github.pagehelper.PageInfo<User> uInfo=new com.github.pagehelper.PageInfo<User>(userList);
 		//这里的分页实在太坑，暂时先set进去吧，我知道这样不对，但是搞了半天还是没搞定(。﹏。*)
 		
 		return userList;
@@ -206,6 +206,11 @@ public class UserService extends BaseService<User> implements IUserService {
 		Role role=new Role();
 		role.setName(roleName);
 		roleMapper.insertSelective(role);
+	}
+
+	@Override
+	public List<Integer> getUserRoleList(Integer userId) {
+		return userRoleMapper.getRoleIdListByUserId(userId);
 	}
 
 }
